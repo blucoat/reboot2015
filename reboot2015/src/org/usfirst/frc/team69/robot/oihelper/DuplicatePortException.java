@@ -1,0 +1,22 @@
+package org.usfirst.frc.team69.robot.oihelper;
+
+@SuppressWarnings("serial")
+public class DuplicatePortException extends Exception {
+	
+	private int port;
+	private Port.Type type;
+	private String first;
+	private String second;
+	
+	public int getNumber() { return port; }
+	public Port.Type getType() { return type; }
+	public String getFirst() { return first; }
+	public String getSecond() { return second; }
+	
+	public DuplicatePortException(int port, Port.Type type, String first, String second) {
+		this.port = port;
+		this.type = type;
+		this.first = first;
+		this.second = second;
+	}
+}

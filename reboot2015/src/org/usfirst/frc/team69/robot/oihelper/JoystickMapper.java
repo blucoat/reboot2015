@@ -1,6 +1,6 @@
 package org.usfirst.frc.team69.robot.oihelper;
 
-import java.lang.reflect.Field;
+import java.io.IOException;
 
 import org.usfirst.frc.team69.robot.OI;
 import org.usfirst.frc.team69.robot.RobotMap;
@@ -21,7 +21,19 @@ public class JoystickMapper {
 			System.out.println();
 		}
 		
-		findPorts(RobotMap.class, "");
+
+		try {
+			new PortMapper().mapPorts(RobotMap.class);
+		} catch (DuplicatePortException e) {
+			System.out.printf("ERROR: %s and %s are both assigned to %s #%d\n",
+					e.getFirst(), e.getSecond(), e.getType(), e.getNumber());
+		} catch (InvalidPortException e) {
+			System.out.printf("ERROR: %s cannot be assigned to %s #%d because it is not a valid port\n",
+					e.getName(), e.getType(), e.getNumber());
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("IOException occured while making wiring diagram");
+		}
 	}
 	
 	public static class PortData {
@@ -32,25 +44,5 @@ public class JoystickMapper {
 			this.port = port;
 		}
 	}
-	
-	public static void findPorts(Class<?> c, String name) {
-		for (Field f : c.getFields()) {
-			try {
-				Port p = f.getAnnotation(Port.class);
-				if (p == null) {
-					continue;
-				}
-				int i = f.getInt(null);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Double check your RobotMap file!");
-				System.out.println("If you can't fix it email the backtrace "
-						+ "along with the current RobotMap.java to James");
-			}
-		}
-		
-		for (Class<?> sub : c.getClasses()) {
-			findPorts(sub, name);
-		}
-	}
+
 }
