@@ -4,6 +4,7 @@ import org.usfirst.frc.team69.robot.oihelper.IOIHelper;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper.IButtonHelper;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper.IJoystickHelper;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper.JoystickType;
+import org.usfirst.frc.team69.robot.oihelper.QuickCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -38,7 +39,7 @@ public class OI {
 	}
 	
 	public void addCommands() {
-		
+		stuffBtn.get().whenPressed(QuickCommand.oneShot(Robot.containerGrabber, () -> Robot.containerGrabber.solenoid.set(true)));
 	}
     
 }

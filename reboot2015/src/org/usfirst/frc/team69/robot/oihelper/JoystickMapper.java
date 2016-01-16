@@ -1,6 +1,12 @@
 package org.usfirst.frc.team69.robot.oihelper;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team69.robot.OI;
 import org.usfirst.frc.team69.robot.RobotMap;
@@ -20,7 +26,7 @@ public class JoystickMapper {
 			}
 			System.out.println();
 		}
-		
+		mapJoystick();
 
 		try {
 			new PortMapper().mapPorts(RobotMap.class);
@@ -35,14 +41,17 @@ public class JoystickMapper {
 			System.out.println("IOException occured while making wiring diagram");
 		}
 	}
-	
-	public static class PortData {
-		public String name;
-		public int port;
-		public PortData(String name, int port) {
-			this.name = name;
-			this.port = port;
+
+	private static void mapJoystick() {
+		try {
+			BufferedImage img = ImageIO.read(JoystickMapper.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper.jpg"));
+			Graphics g = img.createGraphics();
+			g.setColor(Color.BLACK);
+			g.drawString("Do stuff", 634, 354);
+			ImageIO.write(img, "png", new File("diagrams/joystick.png"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-
 }
