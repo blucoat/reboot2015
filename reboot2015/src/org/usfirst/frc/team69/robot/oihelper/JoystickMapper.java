@@ -71,7 +71,7 @@ public class JoystickMapper {
 		int[] y = {354, 436, 296, 296, 223, 223, 562, 562, 635, 635, 708, 708};
 		
 		for (int i = 0; i < 12; i++) {
-			if (i == 1) {
+			if (i == 0) {
 				g.setFont(new Font("Arial", Font.PLAIN, 12));
 			} else {
 				g.setFont(new Font("Arial", Font.PLAIN, 16));
