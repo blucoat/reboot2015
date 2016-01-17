@@ -1,14 +1,18 @@
 package org.usfirst.frc.team69.robot.subsystems;
 
 import org.usfirst.frc.team69.robot.RobotMap;
+import org.usfirst.frc.team69.robot.oihelper.QuickCommand;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -23,13 +27,26 @@ public class ContainerLifter {
 	public static class Vacuum extends Subsystem {
 		public Relay indicator = new Relay(RobotMap.ContainerLifter.Vacuum.INDICATOR_RELAY);
 		public DigitalInput sensor = new DigitalInput(RobotMap.ContainerLifter.Vacuum.SENSOR_DIO);
-		public Solenoid seal = new Solenoid(RobotMap.ContainerLifter.Vacuum.SEAL_SOLENOID);
+		public Solenoid release = new Solenoid(RobotMap.ContainerLifter.Vacuum.SEAL_SOLENOID);
 		public Solenoid venturi = new Solenoid(RobotMap.ContainerLifter.Vacuum.VENTURI_SOLENOID);
 
 		@Override
 		public void initDefaultCommand() {
-			// Set the default command for a subsystem here.
-			//setDefaultCommand(new MySpecialCommand());
+			setDefaultCommand(releaseCmd());
+		}
+		
+		public Command autoVacuumCmd() {
+			return QuickCommand.continuous(this, () -> {
+				release.set(false);
+				venturi.set(sensor.get());
+			});
+		}
+		
+		public Command releaseCmd() {
+			return QuickCommand.oneShot(this, () -> {
+				release.set(false);
+				venturi.set(true);
+			});
 		}
 	}
 	
@@ -40,10 +57,16 @@ public class ContainerLifter {
 
 		@Override
 		protected void initDefaultCommand() {
-			// TODO Auto-generated method stub
+			// no default command
+		}
+		
+		public Command setTiltedCmd(boolean tilt) {
+			return QuickCommand.oneShot(this, () -> solenoid.set(tilt ? Value.kForward : Value.kReverse));
 		}
 	}
 	
+	// This should be using PID, but I'm making it equivalent in functionality to the 2015 code, which used manual control
+	// Implementing PID is left as an exercise to the user :^)
 	public static class Elevator extends Subsystem {
 
 		public SpeedController motor = new Talon(RobotMap.ContainerLifter.Elevator.MOTOR);
@@ -53,10 +76,16 @@ public class ContainerLifter {
 		
 		@Override
 		protected void initDefaultCommand() {
-			// TODO Auto-generated method stub
-			
+			setDefaultCommand(stopCmd());
 		}
 		
+		public Command stopCmd() {
+			return QuickCommand.oneShot(this, () -> motor.set(0.0));
+		}
+		
+		public Command userControlCmd(Joystick js) {
+			return QuickCommand.continuous(this, () -> motor.set(js.getY()));
+		}
 	}
 }
 
