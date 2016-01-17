@@ -73,7 +73,7 @@ public class OI {
 	
 	public void addCommands() {
 		grabberInBtn.get().whenPressed(Robot.containerGrabber.setArmsOutCmd(false));
-		grabberInBtn.get().whenPressed(Robot.containerGrabber.setArmsOutCmd(true));
+		grabberOutBtn.get().whenPressed(Robot.containerGrabber.setArmsOutCmd(true));
 		
 		toteLifterUpBtn.get().whileHeld(Robot.toteLifter.moveUpCmd());
 		toteLifterDownBtn.get().whileHeld(Robot.toteLifter.moveDownCmd());

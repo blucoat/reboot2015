@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ToteLifter extends Subsystem {
 
-	public SpeedController motor = new Talon(RobotMap.ContainerLifter.Elevator.MOTOR);
+	public SpeedController motor = new Talon(RobotMap.ToteLifter.MOTOR);
 	public Encoder encoder = new Encoder(
 			RobotMap.ToteLifter.ENCODER_A_DIO,
 			RobotMap.ToteLifter.ENCODER_B_DIO);
@@ -26,7 +26,7 @@ public class ToteLifter extends Subsystem {
 	}
 	
 	public Command moveUpCmd() {
-		return QuickCommand.oneShot(this, () -> motor.set(1.0));
+		return QuickCommand.continuous(this, () -> motor.set(1.0));
 	}
 	
 	public Command moveDownCmd() {

@@ -39,13 +39,15 @@ public class ContainerLifter {
 			return QuickCommand.continuous(this, () -> {
 				release.set(false);
 				venturi.set(sensor.get());
+				indicator.set(sensor.get() ? Relay.Value.kOff : Relay.Value.kForward); 
 			});
 		}
 		
 		public Command releaseCmd() {
 			return QuickCommand.oneShot(this, () -> {
-				release.set(false);
-				venturi.set(true);
+				release.set(true);
+				venturi.set(false);
+				indicator.set(Relay.Value.kOff);
 			});
 		}
 	}
