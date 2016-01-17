@@ -15,4 +15,9 @@ public class InvalidPortException extends Exception {
 	public int getNumber() { return number; }
 	public Port.Type getType() { return type; }
 	public String getName() { return name; }
+	
+	public String getMessage() {
+		return String.format("%s cannot be assigned to %s #%d because it is not a valid port",
+				name, type, number);
+	}
 }

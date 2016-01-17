@@ -12,7 +12,7 @@ public interface IOIHelper {
 	
 	public interface IJoystickHelper {
 		public Joystick get();
-		public IButtonHelper addButton(int number, String name);
+		public IButtonHelper addButton(int number, String name) throws InvalidButtonException, DuplicateButtonException;
 	}
 	
 	public interface IButtonHelper {

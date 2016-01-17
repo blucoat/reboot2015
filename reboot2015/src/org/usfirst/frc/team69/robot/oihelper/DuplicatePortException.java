@@ -19,4 +19,10 @@ public class DuplicatePortException extends Exception {
 		this.first = first;
 		this.second = second;
 	}
+	
+	@Override
+	public String getMessage() {
+		return String.format("%s and %s are both assigned to %s #%d\n",
+				first, second, type, port);
+	}
 }

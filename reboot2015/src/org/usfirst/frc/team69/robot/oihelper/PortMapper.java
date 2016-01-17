@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.EnumMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -69,12 +68,6 @@ public class PortMapper {
 	}
 	
 	private void drawMap() throws IOException {
-		for (Map.Entry<Port.Type, String[]> entry : portNames.entrySet()) {
-			for (int i = 0; i < entry.getValue().length; i++) {
-				System.out.printf("%s #%d: %s\n", entry.getKey().toString(), i, entry.getValue()[i]);
-			}
-		}
-		
 		BufferedImage img = ImageIO.read(getClass().getResource("/org/usfirst/frc/team69/robot/oihelper/wiring.png"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
@@ -85,11 +78,7 @@ public class PortMapper {
 		drawAnalog(g);
 		drawPCM(g);
 		
-		File diagrams = new File("diagrams");
-		if (!diagrams.exists()) {
-			diagrams.mkdirs();
-		}
-		
+		new File("diagrams").mkdirs();
 		ImageIO.write(img, "png", new File("diagrams/wiring.png"));
 	}
 	

@@ -13,12 +13,22 @@ public class MockOIHelper implements IOIHelper {
 		public int port;
 		public JoystickType type;
 		public String name;
-		public ArrayList<ButtonHelper> buttons = new ArrayList<ButtonHelper>();
+		public ButtonHelper[] buttons;
 		
 		public JoystickHelper(int port, JoystickType type, String name) {
 			this.port = port;
 			this.type = type;
 			this.name = name;
+			switch (type) {
+			case LOGITECH_2_AXIS:
+				buttons = new ButtonHelper[11];
+				break;
+			case LOGITECH_3_AXIS:
+				buttons = new ButtonHelper[12];
+				break;
+			default:
+				throw new UnsupportedOperationException("MockIOHelper does not support " + type.toString());
+			}
 		}
 
 		@Override
@@ -27,20 +37,25 @@ public class MockOIHelper implements IOIHelper {
 		}
 
 		@Override
-		public IButtonHelper addButton(int number, String name) {
-			ButtonHelper button = new ButtonHelper(number, name);
-			buttons.add(button);
+		public IButtonHelper addButton(int number, String name) throws InvalidButtonException, DuplicateButtonException {
+			if (number < 1 || number > buttons.length) {
+				throw new InvalidButtonException(name, number, this);
+			}
+			if (buttons[number - 1] != null) {
+				throw new DuplicateButtonException(buttons[number - 1].name, name, number, this);
+			}
+			
+			ButtonHelper button = new ButtonHelper(name);
+			buttons[number - 1] = button;
 			return button;
 		}
 		
 	}
 	
 	public class ButtonHelper implements IButtonHelper {
-		public int number;
 		public String name;
 		
-		public ButtonHelper(int number, String name) {
-			this.number = number;
+		public ButtonHelper(String name) {
 			this.name = name;
 		}
 		

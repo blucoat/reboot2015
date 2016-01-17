@@ -1,9 +1,14 @@
 package org.usfirst.frc.team69.robot;
 
+import org.usfirst.frc.team69.robot.oihelper.DuplicateButtonException;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper.IButtonHelper;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper.IJoystickHelper;
 import org.usfirst.frc.team69.robot.oihelper.IOIHelper.JoystickType;
+
+import edu.wpi.first.wpilibj.DriverStation;
+
+import org.usfirst.frc.team69.robot.oihelper.InvalidButtonException;
 import org.usfirst.frc.team69.robot.oihelper.QuickCommand;
 
 /**
@@ -25,17 +30,23 @@ public class OI {
 	}
 	
 	public void init() {
-		addButtons();
+		try {
+			addButtons();
+		} catch (InvalidButtonException | DuplicateButtonException e) {
+			// nothing should happen here.  the exceptions are only thrown when run from the driver station,
+			// not on the robot. just in case:
+			DriverStation.reportError("ERROR: " + e.getMessage(), false);
+		}
 		addCommands();
 	}
 	
-	public void addButtons() {
+	public void addButtons() throws InvalidButtonException, DuplicateButtonException {
 		leftDriverJoystick = helper.addJoystick(0, JoystickType.LOGITECH_3_AXIS, "Left Driver");
-		rightDriverJoystick = helper.addJoystick(1, JoystickType.LOGITECH_2_AXIS, "Right Driver");
-		leftOperatorJoystick = helper.addJoystick(2, JoystickType.LOGITECH_2_AXIS, "Left Operator");
-		rightOperatorJoystick = helper.addJoystick(3, JoystickType.LOGITECH_2_AXIS, "Right Operator");
+		rightDriverJoystick = helper.addJoystick(1, JoystickType.LOGITECH_3_AXIS, "Right Driver");
+		leftOperatorJoystick = helper.addJoystick(2, JoystickType.LOGITECH_3_AXIS, "Left Operator");
+		rightOperatorJoystick = helper.addJoystick(3, JoystickType.LOGITECH_3_AXIS, "Right Operator");
 		
-		stuffBtn = leftDriverJoystick.addButton(1, "Do stuff!");
+		stuffBtn = leftDriverJoystick.addButton(12, "Do stuff!");
 	}
 	
 	public void addCommands() {
