@@ -56,6 +56,11 @@ public class JoystickMapper {
 	}
 	
 	private BufferedImage draw2Axis(JoystickHelper js) throws IOException {
+		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper.jpg"));
+		Graphics g = img.createGraphics();
+		g.setColor(Color.BLACK);
+		
+		
 		throw new UnsupportedOperationException("TODO 2 axis image");
 	}
 	
