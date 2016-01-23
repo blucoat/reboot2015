@@ -25,7 +25,10 @@ public class ContainerLifterMovePID extends PIDCommand {
 	
 	public ContainerLifterMovePID(Joystick js) {
 		super(0.1, 0, 0); // again, we need to tune these parameters. we need an I parameter
-		LiveWindow.addActuator("Container Lifter", "Velocity PID", getPIDController());
+		requires(elevator);
+		
+		LiveWindow.addActuator(elevator.getName(), "Velocity PID", getPIDController());
+		
 		this.js = js;
 	}
 

@@ -4,13 +4,16 @@ import org.usfirst.frc.team69.robot.Robot;
 import org.usfirst.frc.team69.robot.subsystems.ContainerLifter;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class ContainerLifterHoldPID extends PIDCommand {
 	private ContainerLifter.Elevator elevator = Robot.containerLifter.elevator;
 	
 	public ContainerLifterHoldPID() {
-		super(1, 0, 0); // Major TODO: set these parameters.  Or if we can make it tunable with the livewindow do that.
-		this.requires(elevator);
+		super(0.1, 0, 0); // Major TODO: set these parameters.  Or if we can make it tunable with the livewindow do that.
+		requires(elevator);
+		
+		LiveWindow.addActuator(elevator.getName(), "Hold PID", getPIDController());
 	}
 
 	@Override
