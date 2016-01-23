@@ -35,8 +35,10 @@ public class JoystickMapper {
 		switch (joystick.type) {
 		case LOGITECH_2_AXIS:
 			img = draw2Axis(joystick);
+			break;//god damnit, james!
 		case LOGITECH_3_AXIS:
 			img = draw3Axis(joystick);
+			break;//god damnit, james!
 		}
 		
 		// img is null if new enum types are added
@@ -56,12 +58,28 @@ public class JoystickMapper {
 	}
 	
 	private BufferedImage draw2Axis(JoystickHelper js) throws IOException {
-		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper.jpg"));
+		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper_2_axis.jpg"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		
+		g.setFont(new Font("Arial", Font.PLAIN, 12));
+		drawInfo(g, js);
 		
-		throw new UnsupportedOperationException("TODO 2 axis image");
+		int[] x = {300, 280, 297, 136, 449,  22,  10, 166, 357, 520, 520};
+		int[] y = { 37, 196, 113, 113, 112, 403, 497, 630, 630, 362, 442};
+		
+		for (int i = 0; i < js.buttons.length; i++) {
+			if (i == 0) {
+				g.setFont(new Font("Arial", Font.PLAIN, 12));
+			} else {
+				g.setFont(new Font("Arial", Font.PLAIN, 16));
+			}
+			if (js.buttons[i] != null) {
+				g.drawString(js.buttons[i].name, x[i], y[i]);
+			}
+		}
+		
+		return img;
 	}
 	
 	private BufferedImage draw3Axis(JoystickHelper js) throws IOException {
@@ -72,10 +90,10 @@ public class JoystickMapper {
 		g.setFont(new Font("Arial", Font.PLAIN, 16));
 		drawInfo(g, js);
 		
-		int[] x = {634, 206, 450, 810, 419, 826, 28, 206, 28, 206, 28, 206};
+		int[] x = {634, 206, 450, 810, 419, 826,  28, 206,  28, 206,  28, 206};
 		int[] y = {354, 436, 296, 296, 223, 223, 562, 562, 635, 635, 708, 708};
 		
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < js.buttons.length; i++) {
 			if (i == 0) {
 				g.setFont(new Font("Arial", Font.PLAIN, 12));
 			} else {

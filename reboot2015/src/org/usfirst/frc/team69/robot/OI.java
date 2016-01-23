@@ -52,10 +52,10 @@ public class OI {
 	}
 	
 	public void addButtons() throws InvalidButtonException, DuplicateButtonException {
-		leftDriverJoystick = helper.addJoystick(0, JoystickType.LOGITECH_3_AXIS, "Left Driver");
+		leftDriverJoystick = helper.addJoystick(0, JoystickType.LOGITECH_2_AXIS, "Left Driver");
 		rightDriverJoystick = helper.addJoystick(1, JoystickType.LOGITECH_3_AXIS, "Right Driver");
-		leftOperatorJoystick = helper.addJoystick(2, JoystickType.LOGITECH_3_AXIS, "Left Operator");
-		rightOperatorJoystick = helper.addJoystick(3, JoystickType.LOGITECH_3_AXIS, "Right Operator");
+		leftOperatorJoystick = helper.addJoystick(2, JoystickType.LOGITECH_2_AXIS, "Left Operator");
+		rightOperatorJoystick = helper.addJoystick(3, JoystickType.LOGITECH_2_AXIS, "Right Operator");
 		
 		
 		grabberInBtn = rightDriverJoystick.addButton(7, "Retract container grabber");
