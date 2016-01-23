@@ -58,8 +58,8 @@ public class OI {
 		rightOperatorJoystick = helper.addJoystick(3, JoystickType.LOGITECH_2_AXIS, "Right Operator");
 		
 		
-		grabberInBtn = rightDriverJoystick.addButton(7, "Retract container grabber");
-		grabberOutBtn = rightDriverJoystick.addButton(6, "Extend container grabber");
+		grabberInBtn = rightDriverJoystick.addButton(7, "Retract grabber");
+		grabberOutBtn = rightDriverJoystick.addButton(6, "Extend grabber");
 		
 		toteLifterUpBtn = leftOperatorJoystick.addButton(6, "Tote lifter up");
 		toteLifterDownBtn = leftOperatorJoystick.addButton(7, "Tote lifter down");
@@ -68,7 +68,7 @@ public class OI {
 		containerTiltOutBtn = rightOperatorJoystick.addButton(9, "Container tilt out");
 		vacuumOnBtn = rightOperatorJoystick.addButton(2, "Vacuum on");
 		vacuumOffBtn = rightOperatorJoystick.addButton(3, "Vacuum off");
-		containerLifterManualBtn = rightOperatorJoystick.addButton(1, "Container manual control");
+		containerLifterManualBtn = rightOperatorJoystick.addButton(1, "Container manual");
 	}
 	
 	public void addCommands() {

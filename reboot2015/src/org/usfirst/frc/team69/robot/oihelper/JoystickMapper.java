@@ -62,11 +62,11 @@ public class JoystickMapper {
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		
-		g.setFont(new Font("Arial", Font.PLAIN, 12));
+		g.setFont(new Font("Arial", Font.PLAIN, 16));
 		drawInfo(g, js);
 		
 		int[] x = {300, 280, 297, 136, 449,  22,  10, 166, 357, 520, 520};
-		int[] y = { 37, 196, 113, 113, 112, 403, 497, 630, 630, 362, 442};
+		int[] y = {44, 208, 125, 125, 125, 412, 510, 643, 643, 375, 454};
 		
 		for (int i = 0; i < js.buttons.length; i++) {
 			if (i == 0) {
