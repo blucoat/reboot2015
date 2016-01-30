@@ -1,4 +1,4 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.port;
 
 @SuppressWarnings("serial")
 public class DuplicatePortException extends Exception {

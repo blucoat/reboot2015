@@ -1,4 +1,4 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.oi;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team69.robot.OI;
-import org.usfirst.frc.team69.robot.oihelper.MockOIHelper.JoystickHelper;
+import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
 public class JoystickMapper {
 
@@ -58,7 +58,7 @@ public class JoystickMapper {
 	}
 	
 	private BufferedImage draw2Axis(JoystickHelper js) throws IOException {
-		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper_2_axis.jpg"));
+		BufferedImage img = ImageIO.read(getClass().getResource("sc_mapping_helper_2_axis.jpg"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		
@@ -83,7 +83,7 @@ public class JoystickMapper {
 	}
 	
 	private BufferedImage draw3Axis(JoystickHelper js) throws IOException {
-		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper.jpg"));
+		BufferedImage img = ImageIO.read(getClass().getResource("sc_mapping_helper.jpg"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		

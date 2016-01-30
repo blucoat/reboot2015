@@ -1,4 +1,4 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.port;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -68,7 +68,7 @@ public class PortMapper {
 	}
 	
 	private void drawMap() throws IOException {
-		BufferedImage img = ImageIO.read(getClass().getResource("/org/usfirst/frc/team69/robot/oihelper/wiring.png"));
+		BufferedImage img = ImageIO.read(getClass().getResource("wiring.png"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		

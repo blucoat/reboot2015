@@ -1,6 +1,6 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.oi;
 
-import org.usfirst.frc.team69.robot.oihelper.MockOIHelper.JoystickHelper;
+import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
 @SuppressWarnings("serial")
 public class DuplicateButtonException extends Exception {

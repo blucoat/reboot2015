@@ -1,8 +1,14 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util;
 
 import java.io.IOException;
 
 import org.usfirst.frc.team69.robot.RobotMap;
+import org.usfirst.frc.team69.util.oi.DuplicateButtonException;
+import org.usfirst.frc.team69.util.oi.InvalidButtonException;
+import org.usfirst.frc.team69.util.oi.JoystickMapper;
+import org.usfirst.frc.team69.util.port.DuplicatePortException;
+import org.usfirst.frc.team69.util.port.InvalidPortException;
+import org.usfirst.frc.team69.util.port.PortMapper;
 
 public class RobotInspector {
 

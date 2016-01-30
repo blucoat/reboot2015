@@ -1,11 +1,11 @@
 
 package org.usfirst.frc.team69.robot;
 
-import org.usfirst.frc.team69.robot.oihelper.OIHelper;
 import org.usfirst.frc.team69.robot.subsystems.ContainerGrabber;
 import org.usfirst.frc.team69.robot.subsystems.ContainerLifter;
 import org.usfirst.frc.team69.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team69.robot.subsystems.ToteLifter;
+import org.usfirst.frc.team69.util.oi.OIHelper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;

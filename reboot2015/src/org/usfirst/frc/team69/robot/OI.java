@@ -1,11 +1,11 @@
 package org.usfirst.frc.team69.robot;
 
-import org.usfirst.frc.team69.robot.oihelper.DuplicateButtonException;
-import org.usfirst.frc.team69.robot.oihelper.IOIHelper;
-import org.usfirst.frc.team69.robot.oihelper.IOIHelper.IButtonHelper;
-import org.usfirst.frc.team69.robot.oihelper.IOIHelper.IJoystickHelper;
-import org.usfirst.frc.team69.robot.oihelper.IOIHelper.JoystickType;
-import org.usfirst.frc.team69.robot.oihelper.InvalidButtonException;
+import org.usfirst.frc.team69.util.oi.DuplicateButtonException;
+import org.usfirst.frc.team69.util.oi.IOIHelper;
+import org.usfirst.frc.team69.util.oi.InvalidButtonException;
+import org.usfirst.frc.team69.util.oi.IOIHelper.IButtonHelper;
+import org.usfirst.frc.team69.util.oi.IOIHelper.IJoystickHelper;
+import org.usfirst.frc.team69.util.oi.IOIHelper.JoystickType;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
