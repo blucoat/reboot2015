@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OIHelper implements IOIHelper {
 
-	private class JoystickHelper implements IJoystickHelper {
+	private class JoystickHelper implements IJoystick {
 		private Joystick joystick;
 		
 		public JoystickHelper(Joystick joystick) {
@@ -18,12 +18,12 @@ public class OIHelper implements IOIHelper {
 		}
 
 		@Override
-		public IButtonHelper addButton(int number, String name) {
+		public IButton addButton(int number, String name) {
 			return new ButtonHelper(new JoystickButton(joystick, number));
 		}
 	}
 	
-	private class ButtonHelper implements IButtonHelper {
+	private class ButtonHelper implements IButton {
 		private JoystickButton button;
 		
 		public ButtonHelper(JoystickButton button) {
@@ -38,7 +38,7 @@ public class OIHelper implements IOIHelper {
 	}
 	
 	@Override
-	public IJoystickHelper addJoystick(int port, JoystickType type, String name) {
+	public IJoystick addJoystick(int port, JoystickType type, String name) {
 		return new JoystickHelper(new Joystick(port));
 	}
 }

@@ -1,25 +1,23 @@
 package org.usfirst.frc.team69.util.oi;
 
+import org.usfirst.frc.team69.util.oi.MockOIHelper.ButtonHelper;
 import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
 @SuppressWarnings("serial")
 public class DuplicateButtonException extends Exception {
-	public String name1;
-	public String name2;
-	public int number;
+	private ButtonHelper b1, b2;
 	public JoystickHelper js;
 	
-	public DuplicateButtonException(String name1, String name2, int number, JoystickHelper js) {
-		this.name1 = name1;
-		this.name2 = name2;
-		this.number = number;
+	public DuplicateButtonException(ButtonHelper b1, ButtonHelper b2, JoystickHelper js) {
+		this.b1 = b1;
+		this.b2 = b2;
 		this.js = js;
 	}
 	
 	@Override
 	public String getMessage() {
 		return String.format("\"%s\" and \"%s\" are both assigned to button #%d on joystick #%d (%s)",
-				name1, name2, number, js.port, js.name);
+				b1.name, b2.name, b1.number, js.port, js.name);
 	}
 	
 }

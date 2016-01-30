@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team69.robot.OI;
+import org.usfirst.frc.team69.util.oi.MockOIHelper.ButtonHelper;
 import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
 public class JoystickMapper {
@@ -18,8 +19,12 @@ public class JoystickMapper {
 	
 	public void mapJoysticks() throws InvalidButtonException, DuplicateButtonException, IOException {
 		helper = new MockOIHelper();
-		OI oi = new OI(helper);
-		oi.addButtons();
+		
+		OI.setHelper(helper);
+		new OI();
+		
+		helper.verify();
+		
 		drawMap();
 	}
 	
@@ -68,15 +73,14 @@ public class JoystickMapper {
 		int[] x = {300, 280, 297, 136, 449,  22,  10, 166, 357, 520, 520};
 		int[] y = {44, 208, 125, 125, 125, 412, 510, 643, 643, 375, 454};
 		
-		for (int i = 0; i < js.buttons.length; i++) {
-			if (i == 0) {
+		for (ButtonHelper b : js.buttons) {
+			if (b.number == 1) {
 				g.setFont(new Font("Arial", Font.PLAIN, 12));
 			} else {
 				g.setFont(new Font("Arial", Font.PLAIN, 16));
 			}
-			if (js.buttons[i] != null) {
-				g.drawString(js.buttons[i].name, x[i], y[i]);
-			}
+			
+			g.drawString(b.name, x[b.number - 1], y[b.number - 1]);
 		}
 		
 		return img;
@@ -93,15 +97,14 @@ public class JoystickMapper {
 		int[] x = {634, 206, 450, 810, 419, 826,  28, 206,  28, 206,  28, 206};
 		int[] y = {354, 436, 296, 296, 223, 223, 562, 562, 635, 635, 708, 708};
 		
-		for (int i = 0; i < js.buttons.length; i++) {
-			if (i == 0) {
+		for (ButtonHelper b : js.buttons) {
+			if (b.number == 1) {
 				g.setFont(new Font("Arial", Font.PLAIN, 12));
 			} else {
 				g.setFont(new Font("Arial", Font.PLAIN, 16));
 			}
-			if (js.buttons[i] != null) {
-				g.drawString(js.buttons[i].name, x[i], y[i]);
-			}
+			
+			g.drawString(b.name, x[b.number - 1], y[b.number - 1]);
 		}
 		
 		return img;
