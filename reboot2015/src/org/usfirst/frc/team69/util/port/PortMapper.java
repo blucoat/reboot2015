@@ -10,11 +10,25 @@ import java.util.EnumMap;
 
 import javax.imageio.ImageIO;
 
+/**
+ * The {@link PortMapper} class generates a wiring diagram from the {@link RobotMap}
+ * class.
+ * 
+ * @author James Hagborg
+ *
+ */
 public class PortMapper {
 
 	private EnumMap<Port.Type, String[]> portNames = new EnumMap<Port.Type, String[]>(Port.Type.class);
 	private Class<?> baseClass;
 	
+	/**
+	 * Generate a wiring diagram from the given class.
+	 * @param c The RobotMap class containing the entries.
+	 * @throws DuplicatePortException if there are duplicate ports
+	 * @throws InvalidPortException if there are invalid ports
+	 * @throws IOException if there was an IOException from reading or writing an image
+	 */
 	public void mapPorts(Class<?> c) throws DuplicatePortException, InvalidPortException, IOException {
 		initNames();
 		baseClass = c;

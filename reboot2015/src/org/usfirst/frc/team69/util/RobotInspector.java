@@ -10,6 +10,14 @@ import org.usfirst.frc.team69.util.port.DuplicatePortException;
 import org.usfirst.frc.team69.util.port.InvalidPortException;
 import org.usfirst.frc.team69.util.port.PortMapper;
 
+/**
+ * This is the entry point for running RobotInspector.  This will verify both the
+ * operator interface and port mapping and generate diagrams in the /diagrams
+ * directory.  To run this, right-click in eclipse and run as a java application.
+ * 
+ * @author James Hagborg
+ *
+ */
 public class RobotInspector {
 
 	public static void main(String[] args) {
