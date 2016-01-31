@@ -1,4 +1,4 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.port;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,11 +10,25 @@ import java.util.EnumMap;
 
 import javax.imageio.ImageIO;
 
+/**
+ * The {@link PortMapper} class generates a wiring diagram from the {@link RobotMap}
+ * class.
+ * 
+ * @author James Hagborg
+ *
+ */
 public class PortMapper {
 
 	private EnumMap<Port.Type, String[]> portNames = new EnumMap<Port.Type, String[]>(Port.Type.class);
 	private Class<?> baseClass;
 	
+	/**
+	 * Generate a wiring diagram from the given class.
+	 * @param c The RobotMap class containing the entries.
+	 * @throws DuplicatePortException if there are duplicate ports
+	 * @throws InvalidPortException if there are invalid ports
+	 * @throws IOException if there was an IOException from reading or writing an image
+	 */
 	public void mapPorts(Class<?> c) throws DuplicatePortException, InvalidPortException, IOException {
 		initNames();
 		baseClass = c;
@@ -68,7 +82,7 @@ public class PortMapper {
 	}
 	
 	private void drawMap() throws IOException {
-		BufferedImage img = ImageIO.read(getClass().getResource("/org/usfirst/frc/team69/robot/oihelper/wiring.png"));
+		BufferedImage img = ImageIO.read(getClass().getResource("wiring.png"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.oi;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,16 +10,37 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team69.robot.OI;
-import org.usfirst.frc.team69.robot.oihelper.MockOIHelper.JoystickHelper;
+import org.usfirst.frc.team69.util.oi.MockOIHelper.ButtonHelper;
+import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
+/**
+ * The {@link JoystickMapper} class generates diagrams from the operator
+ * interface.
+ * 
+ * @author James Hagborg
+ *
+ */
 public class JoystickMapper {
 
 	MockOIHelper helper;
 	
+	/**
+	 * Verifies and generates diagrams from the controls specified in {@link OI}.
+	 * The generated diagrams are placed in the "/diagrams" directory.
+	 * 
+	 * @throws InvalidButtonException If OI specifies an invalid button
+	 * @throws DuplicateButtonException If OI specifies the same button twice
+	 * @throws IOException If there was an exception reading or writing an image
+	 * file
+	 */
 	public void mapJoysticks() throws InvalidButtonException, DuplicateButtonException, IOException {
 		helper = new MockOIHelper();
-		OI oi = new OI(helper);
-		oi.addButtons();
+		
+		OI.setHelper(helper);
+		new OI();
+		
+		helper.verify();
+		
 		drawMap();
 	}
 	
@@ -58,7 +79,7 @@ public class JoystickMapper {
 	}
 	
 	private BufferedImage draw2Axis(JoystickHelper js) throws IOException {
-		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper_2_axis.jpg"));
+		BufferedImage img = ImageIO.read(getClass().getResource("sc_mapping_helper_2_axis.jpg"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		
@@ -68,22 +89,21 @@ public class JoystickMapper {
 		int[] x = {300, 280, 297, 136, 449,  22,  10, 166, 357, 520, 520};
 		int[] y = {44, 208, 125, 125, 125, 412, 510, 643, 643, 375, 454};
 		
-		for (int i = 0; i < js.buttons.length; i++) {
-			if (i == 0) {
+		for (ButtonHelper b : js.buttons) {
+			if (b.number == 1) {
 				g.setFont(new Font("Arial", Font.PLAIN, 12));
 			} else {
 				g.setFont(new Font("Arial", Font.PLAIN, 16));
 			}
-			if (js.buttons[i] != null) {
-				g.drawString(js.buttons[i].name, x[i], y[i]);
-			}
+			
+			g.drawString(b.name, x[b.number - 1], y[b.number - 1]);
 		}
 		
 		return img;
 	}
 	
 	private BufferedImage draw3Axis(JoystickHelper js) throws IOException {
-		BufferedImage img = ImageIO.read(RobotInspector.class.getResource("/org/usfirst/frc/team69/robot/oihelper/sc_mapping_helper.jpg"));
+		BufferedImage img = ImageIO.read(getClass().getResource("sc_mapping_helper.jpg"));
 		Graphics g = img.createGraphics();
 		g.setColor(Color.BLACK);
 		
@@ -93,15 +113,14 @@ public class JoystickMapper {
 		int[] x = {634, 206, 450, 810, 419, 826,  28, 206,  28, 206,  28, 206};
 		int[] y = {354, 436, 296, 296, 223, 223, 562, 562, 635, 635, 708, 708};
 		
-		for (int i = 0; i < js.buttons.length; i++) {
-			if (i == 0) {
+		for (ButtonHelper b : js.buttons) {
+			if (b.number == 1) {
 				g.setFont(new Font("Arial", Font.PLAIN, 12));
 			} else {
 				g.setFont(new Font("Arial", Font.PLAIN, 16));
 			}
-			if (js.buttons[i] != null) {
-				g.drawString(js.buttons[i].name, x[i], y[i]);
-			}
+			
+			g.drawString(b.name, x[b.number - 1], y[b.number - 1]);
 		}
 		
 		return img;
