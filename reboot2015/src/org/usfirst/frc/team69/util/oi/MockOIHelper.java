@@ -5,10 +5,26 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+/**
+ * The {@link MockOIHelper} class will mock OIHelper, keeping track of all
+ * buttons and joysticks added.
+ * 
+ * @author James Hagborg
+ *
+ */
 public class MockOIHelper implements IOIHelper {
 
+	/**
+	 * An ArrayList containing all joysticks in the OI.
+	 */
 	public ArrayList<JoystickHelper> joysticks = new ArrayList<JoystickHelper>();
 
+	/**
+	 * A class to keep track of joysticks created.
+	 * 
+	 * @author James Hagborg
+	 *
+	 */
 	public class JoystickHelper implements IJoystick {
 		public int port;
 		public JoystickType type;
@@ -33,7 +49,12 @@ public class MockOIHelper implements IOIHelper {
 			return button;
 		}
 		
-		public ButtonHelper[] verify() throws InvalidButtonException, DuplicateButtonException {
+		/**
+		 * Check that there are no duplicate or invalid buttons
+		 * @throws InvalidButtonException
+		 * @throws DuplicateButtonException
+		 */
+		public void verify() throws InvalidButtonException, DuplicateButtonException {
 			ButtonHelper[] arr = new ButtonHelper[type.getNumButtons()];
 			
 			for (ButtonHelper b : buttons) {
@@ -46,11 +67,15 @@ public class MockOIHelper implements IOIHelper {
 				
 				arr[b.number - 1] = b;
 			}
-			
-			return arr;
 		}
 	}
 	
+	/**
+	 * A class to keep track of buttons on the OI.
+	 * 
+	 * @author James Hagborg
+	 *
+	 */
 	public class ButtonHelper implements IButton {
 		public String name;
 		public int number;
@@ -74,6 +99,12 @@ public class MockOIHelper implements IOIHelper {
 		return joystick;
 	}
 
+	/**
+	 * Check that there are no duplicate or invalid buttons.
+	 * 
+	 * @throws DuplicateButtonException
+	 * @throws InvalidButtonException
+	 */
 	public void verify() throws DuplicateButtonException, InvalidButtonException {
 		for (JoystickHelper js : joysticks) {
 			js.verify();

@@ -13,10 +13,26 @@ import org.usfirst.frc.team69.robot.OI;
 import org.usfirst.frc.team69.util.oi.MockOIHelper.ButtonHelper;
 import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
+/**
+ * The {@link JoystickMapper} class generates diagrams from the operator
+ * interface.
+ * 
+ * @author James Hagborg
+ *
+ */
 public class JoystickMapper {
 
 	MockOIHelper helper;
 	
+	/**
+	 * Verifies and generates diagrams from the controls specified in {@link OI}.
+	 * The generated diagrams are placed in the "/diagrams" directory.
+	 * 
+	 * @throws InvalidButtonException If OI specifies an invalid button
+	 * @throws DuplicateButtonException If OI specifies the same button twice
+	 * @throws IOException If there was an exception reading or writing an image
+	 * file
+	 */
 	public void mapJoysticks() throws InvalidButtonException, DuplicateButtonException, IOException {
 		helper = new MockOIHelper();
 		

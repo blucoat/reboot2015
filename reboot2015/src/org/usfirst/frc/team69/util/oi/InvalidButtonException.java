@@ -3,6 +3,13 @@ package org.usfirst.frc.team69.util.oi;
 import org.usfirst.frc.team69.util.oi.MockOIHelper.ButtonHelper;
 import org.usfirst.frc.team69.util.oi.MockOIHelper.JoystickHelper;
 
+/**
+ * An exception thrown when you attempt to create a button that does not exist
+ * on the specified type of joystick.
+ * 
+ * @author James Hagborg
+ *
+ */
 @SuppressWarnings("serial")
 public class InvalidButtonException extends Exception {
 	private ButtonHelper b;
