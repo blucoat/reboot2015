@@ -2,6 +2,7 @@ package org.usfirst.frc.team69.util.oi;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 public interface IOIHelper {
 
@@ -28,6 +29,22 @@ public interface IOIHelper {
 	
 	public interface IButton {
 		public JoystickButton get();
+		
+		/**
+		 * Convenience method to replace {@link JoystickButton#whenPressed(Command)}
+		 * @param cmd The command to run when pressed
+		 */
+		public default void whenPressed(Command cmd) {
+			get().whenPressed(cmd);
+		}
+		
+		/**
+		 * Convenience method to replace {@link JoystickButton#whileHeld(Command)}
+		 * @param cmd The command to run while the button is held
+		 */
+		public default void whileHeld(Command cmd) {
+			get().whileHeld(cmd);
+		}
 	}
 	
 	public IJoystick addJoystick(int port, JoystickType type, String name);

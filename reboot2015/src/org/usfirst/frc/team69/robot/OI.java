@@ -42,17 +42,17 @@ public class OI {
 	}
 	
 	private void addCommands() {
-		grabberInBtn.get().whenPressed(Robot.containerGrabber.setArmsOutCmd(false));
-		grabberOutBtn.get().whenPressed(Robot.containerGrabber.setArmsOutCmd(true));
+		grabberInBtn.whenPressed(Robot.containerGrabber.setArmsOutCmd(false));
+		grabberOutBtn.whenPressed(Robot.containerGrabber.setArmsOutCmd(true));
 		
-		toteLifterUpBtn.get().whileHeld(Robot.toteLifter.moveUpCmd());
-		toteLifterDownBtn.get().whileHeld(Robot.toteLifter.moveDownCmd());
+		toteLifterUpBtn.whileHeld(Robot.toteLifter.moveUpCmd());
+		toteLifterDownBtn.whileHeld(Robot.toteLifter.moveDownCmd());
 		
-		containerTiltInBtn.get().whenPressed(Robot.containerLifter.tilt.setTiltedCmd(false));
-		containerTiltOutBtn.get().whenPressed(Robot.containerLifter.tilt.setTiltedCmd(true));
-		vacuumOnBtn.get().whenPressed(Robot.containerLifter.vacuum.autoVacuumCmd());
-		vacuumOffBtn.get().whenPressed(Robot.containerLifter.vacuum.releaseCmd());
-		containerLifterManualBtn.get().whileHeld(Robot.containerLifter.elevator.userControlCmd(rightOperatorJoystick.get()));
+		containerTiltInBtn.whenPressed(Robot.containerLifter.tilt.setTiltedCmd(false));
+		containerTiltOutBtn.whenPressed(Robot.containerLifter.tilt.setTiltedCmd(true));
+		vacuumOnBtn.whenPressed(Robot.containerLifter.vacuum.autoVacuumCmd());
+		vacuumOffBtn.whenPressed(Robot.containerLifter.vacuum.releaseCmd());
+		containerLifterManualBtn.whileHeld(Robot.containerLifter.elevator.userControlCmd(rightOperatorJoystick.get()));
 	}
     
 }
