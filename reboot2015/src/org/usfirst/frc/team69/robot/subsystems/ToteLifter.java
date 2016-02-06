@@ -11,14 +11,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ToteLifter extends Subsystem {
 
-	public SpeedController motor = new Talon(RobotMap.ToteLifter.MOTOR);
-	public Encoder encoder = new Encoder(
+	private SpeedController motor = new Talon(RobotMap.ToteLifter.MOTOR);
+	private Encoder encoder = new Encoder(
 			RobotMap.ToteLifter.ENCODER_A_DIO,
 			RobotMap.ToteLifter.ENCODER_B_DIO);
 	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(stopCmd());
+	}
+	
+	public int getEncoder() {
+		return encoder.get();
 	}
 	
 	public Command stopCmd() {

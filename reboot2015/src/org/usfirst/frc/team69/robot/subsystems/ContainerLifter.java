@@ -25,21 +25,25 @@ public class ContainerLifter {
 	public Elevator elevator = new Elevator();
 	
 	public static class Vacuum extends Subsystem {
-		public Relay indicator = new Relay(RobotMap.ContainerLifter.Vacuum.INDICATOR_RELAY);
-		public DigitalInput sensor = new DigitalInput(RobotMap.ContainerLifter.Vacuum.SENSOR_DIO);
-		public Solenoid release = new Solenoid(RobotMap.ContainerLifter.Vacuum.SEAL_SOLENOID);
-		public Solenoid venturi = new Solenoid(RobotMap.ContainerLifter.Vacuum.VENTURI_SOLENOID);
+		private Relay indicator = new Relay(RobotMap.ContainerLifter.Vacuum.INDICATOR_RELAY);
+		private DigitalInput sensor = new DigitalInput(RobotMap.ContainerLifter.Vacuum.SENSOR_DIO);
+		private Solenoid release = new Solenoid(RobotMap.ContainerLifter.Vacuum.SEAL_SOLENOID);
+		private Solenoid venturi = new Solenoid(RobotMap.ContainerLifter.Vacuum.VENTURI_SOLENOID);
 
 		@Override
 		public void initDefaultCommand() {
 			setDefaultCommand(releaseCmd());
 		}
 		
+		public boolean isSealed() {
+			return !sensor.get();
+		}
+		
 		public Command autoVacuumCmd() {
 			return QuickCommand.continuous(this, () -> {
 				release.set(false);
-				venturi.set(sensor.get());
-				indicator.set(sensor.get() ? Relay.Value.kOff : Relay.Value.kForward); 
+				venturi.set(!isSealed());
+				indicator.set(isSealed() ? Relay.Value.kForward : Relay.Value.kOff); 
 			});
 		}
 		
@@ -53,13 +57,17 @@ public class ContainerLifter {
 	}
 	
 	public static class Tilt extends Subsystem {
-		public DoubleSolenoid solenoid = new DoubleSolenoid(
+		private DoubleSolenoid solenoid = new DoubleSolenoid(
 				RobotMap.ContainerLifter.Tilt.SOLENOID_FORWARD,
 				RobotMap.ContainerLifter.Tilt.SOLENOID_REVERSE);
 
 		@Override
 		protected void initDefaultCommand() {
 			// no default command
+		}
+		
+		public boolean getTilted() {
+			return solenoid.get() == Value.kForward;
 		}
 		
 		public Command setTiltedCmd(boolean tilt) {
@@ -70,15 +78,18 @@ public class ContainerLifter {
 	// This should be using PID, but I'm making it equivalent in functionality to the 2015 code, which used manual control
 	// Implementing PID is left as an exercise to the user :^)
 	public static class Elevator extends Subsystem {
-
-		public SpeedController motor = new Talon(RobotMap.ContainerLifter.Elevator.MOTOR);
-		public Encoder encoder = new Encoder(
+		private SpeedController motor = new Talon(RobotMap.ContainerLifter.Elevator.MOTOR);
+		private Encoder encoder = new Encoder(
 				RobotMap.ContainerLifter.Elevator.ENCODER_A_DIO,
 				RobotMap.ContainerLifter.Elevator.ENCODER_B_DIO);
 		
 		@Override
 		protected void initDefaultCommand() {
 			setDefaultCommand(stopCmd());
+		}
+		
+		public int getEncoder() {
+			return encoder.get();
 		}
 		
 		public Command stopCmd() {

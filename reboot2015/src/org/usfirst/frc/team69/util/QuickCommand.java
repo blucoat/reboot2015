@@ -1,6 +1,9 @@
 package org.usfirst.frc.team69.util;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -98,6 +101,63 @@ public class QuickCommand {
 			@Override
 			protected boolean isFinished() {
 				return false;
+			}
+			@Override
+			protected void end() {}
+			@Override
+			protected void interrupted() {}
+		};
+	}
+	
+	/**
+	 * Create a command that will run until the given condition is met.
+	 * 
+	 * @param req The {@link Subsystem} that this command requires.
+	 * @param body The {@link CommandBody} that will run repeatedly.
+	 * @param finished The condition that signals the end of the command.
+	 * @return The newly created {@link Command}
+	 */
+	public static Command runUntil(Subsystem req, CommandBody body, BooleanSupplier finished) {
+		return new Command() {
+			{
+				this.requires(req);
+			}
+			
+			@Override
+			protected void initialize() {}
+			@Override
+			protected void execute() {
+				body.run();
+			}
+			@Override
+			protected boolean isFinished() {
+				return finished.getAsBoolean();
+			}
+			@Override
+			protected void end() {}
+			@Override
+			protected void interrupted() {}
+		};
+	}
+	
+	/**
+	 * A command that does not complete until the given condition is met.  This
+	 * can be useful when combined with {@link CommandGroup#addSequential(Command)} and
+	 * {@link CommandGroup#addParallel(Command)}
+	 * 
+	 * @param condition The condition that indicates the command is over
+	 * @return The newly created {@link Command}
+	 */
+	public static Command waitFor(BooleanSupplier condition) {
+		return new Command() {
+			@Override
+			protected void initialize() {}
+			@Override
+			protected void execute() {}
+
+			@Override
+			protected boolean isFinished() {
+				return condition.getAsBoolean();
 			}
 			@Override
 			protected void end() {}

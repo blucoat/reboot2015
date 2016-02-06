@@ -1,11 +1,12 @@
 
 package org.usfirst.frc.team69.robot;
 
+import org.usfirst.frc.team69.robot.autonomous.AutoCommands;
+import org.usfirst.frc.team69.robot.driving.Gyro;
 import org.usfirst.frc.team69.robot.subsystems.ContainerGrabber;
 import org.usfirst.frc.team69.robot.subsystems.ContainerLifter;
 import org.usfirst.frc.team69.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team69.robot.subsystems.ToteLifter;
-import org.usfirst.frc.team69.util.oi.OIHelper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,6 +30,8 @@ public class Robot extends IterativeRobot {
 	public static ToteLifter toteLifter;
 	public static ContainerGrabber containerGrabber;
 	
+	public static Gyro gyro;
+	
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -40,13 +43,14 @@ public class Robot extends IterativeRobot {
     	// OI MUST be initialized AFTER all subsystems; it will make commands that require them
 		initSubsystems();
 		initOI();
+		
         chooser = new SendableChooser();
-//        chooser.addObject("My Auto", new MyAutoCommand());
+        chooser.addDefault("Strafe left auto", AutoCommands.strafeLeftCmd());
+        chooser.addObject("Grab containers auto", AutoCommands.grabContainersCmd());
         SmartDashboard.putData("Auto mode", chooser);
     }
     
     private void initOI() {
-    	OI.setHelper(new OIHelper());
 		oi = new OI();
 		oi.init();
     }
@@ -56,6 +60,7 @@ public class Robot extends IterativeRobot {
     	containerLifter = new ContainerLifter();
     	toteLifter = new ToteLifter();
     	containerGrabber = new ContainerGrabber();
+    	gyro = new Gyro();
     }
 	
 	/**
@@ -64,7 +69,6 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
     }
 	
 	public void disabledPeriodic() {
@@ -82,19 +86,6 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
-        
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-    	
-    	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

@@ -4,13 +4,14 @@ import org.usfirst.frc.team69.util.oi.IOIHelper;
 import org.usfirst.frc.team69.util.oi.IOIHelper.IButton;
 import org.usfirst.frc.team69.util.oi.IOIHelper.IJoystick;
 import org.usfirst.frc.team69.util.oi.IOIHelper.JoystickType;
+import org.usfirst.frc.team69.util.oi.OIHelper;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private static IOIHelper helper;
+	private static IOIHelper helper = new OIHelper();
 	
 	public static void setHelper(IOIHelper helper) {
 		OI.helper = helper;
@@ -42,8 +43,8 @@ public class OI {
 	}
 	
 	private void addCommands() {
-		grabberInBtn.whenPressed(Robot.containerGrabber.setArmsOutCmd(false));
-		grabberOutBtn.whenPressed(Robot.containerGrabber.setArmsOutCmd(true));
+		grabberInBtn.whenPressed(Robot.containerGrabber.setExtendedCmd(false));
+		grabberOutBtn.whenPressed(Robot.containerGrabber.setExtendedCmd(true));
 		
 		toteLifterUpBtn.whileHeld(Robot.toteLifter.moveUpCmd());
 		toteLifterDownBtn.whileHeld(Robot.toteLifter.moveDownCmd());

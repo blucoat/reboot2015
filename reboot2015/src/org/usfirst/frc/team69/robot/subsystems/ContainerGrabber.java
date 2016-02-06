@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ContainerGrabber extends Subsystem {
 
-	public DoubleSolenoid solenoid = new DoubleSolenoid(
+	private DoubleSolenoid solenoid = new DoubleSolenoid(
 			RobotMap.ContainerGrabber.SOLENOID_FORWARD,
 			RobotMap.ContainerGrabber.SOLENOID_REVERSE);
 	
@@ -19,7 +19,11 @@ public class ContainerGrabber extends Subsystem {
 		// No default command
 	}
 	
-	public Command setArmsOutCmd(boolean extend) {
+	public boolean isExtended() {
+		return solenoid.get() == Value.kForward;
+	}
+	
+	public Command setExtendedCmd(boolean extend) {
 		return QuickCommand.oneShot(this, () -> solenoid.set(extend ? Value.kForward : Value.kReverse));
 	}
 
