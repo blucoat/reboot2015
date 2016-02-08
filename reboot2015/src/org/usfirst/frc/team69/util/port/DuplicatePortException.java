@@ -1,5 +1,12 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.port;
 
+/**
+ * An exception thrown when you attempt to assign two pieces of hardware to the
+ * same port in {@link RobotMap}.
+ * 
+ * @author James Hagborg
+ *
+ */
 @SuppressWarnings("serial")
 public class DuplicatePortException extends Exception {
 	

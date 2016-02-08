@@ -1,5 +1,12 @@
-package org.usfirst.frc.team69.robot.oihelper;
+package org.usfirst.frc.team69.util.port;
 
+/**
+ * An exception thrown when you attempt to assign hardware to a port that does
+ * not exist in {@link RobotMap}.
+ * 
+ * @author James Hagborg
+ *
+ */
 @SuppressWarnings("serial")
 public class InvalidPortException extends Exception {
 	private int number;

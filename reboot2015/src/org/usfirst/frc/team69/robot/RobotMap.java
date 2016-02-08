@@ -1,7 +1,7 @@
 package org.usfirst.frc.team69.robot;
 
-import org.usfirst.frc.team69.robot.oihelper.Port;
-import org.usfirst.frc.team69.robot.oihelper.Port.Type;
+import org.usfirst.frc.team69.util.port.Port;
+import org.usfirst.frc.team69.util.port.Port.Type;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into

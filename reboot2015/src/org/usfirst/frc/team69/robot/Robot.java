@@ -1,11 +1,11 @@
 
 package org.usfirst.frc.team69.robot;
 
-import org.usfirst.frc.team69.robot.oihelper.OIHelper;
 import org.usfirst.frc.team69.robot.subsystems.ContainerGrabber;
 import org.usfirst.frc.team69.robot.subsystems.ContainerLifter;
 import org.usfirst.frc.team69.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team69.robot.subsystems.ToteLifter;
+import org.usfirst.frc.team69.util.oi.OIHelper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -37,13 +37,18 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	// OI MUST be initialized AFTER all subsystems; it will make commands that require them
 		initSubsystems();
-		// OI MUST be initialized AFTER all subsystems; it will make commands that require them
-		oi = new OI(new OIHelper());
-		oi.init();
+		initOI();
         chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+    }
+    
+    private void initOI() {
+    	OI.setHelper(new OIHelper());
+		oi = new OI();
+		oi.init();
     }
     
     private void initSubsystems() {

@@ -2,7 +2,7 @@ package org.usfirst.frc.team69.robot.subsystems;
 
 import org.usfirst.frc.team69.robot.Robot;
 import org.usfirst.frc.team69.robot.RobotMap;
-import org.usfirst.frc.team69.robot.oihelper.QuickCommand;
+import org.usfirst.frc.team69.util.QuickCommand;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
