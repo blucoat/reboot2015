@@ -1,5 +1,7 @@
 package org.usfirst.frc.team69.util;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -103,6 +105,61 @@ public class QuickCommand {
 			protected void end() {}
 			@Override
 			protected void interrupted() {}
+		};
+	}
+	
+	public static Command pidMove(Subsystem req, PIDController pid, double setPoint, boolean holdAfter) {
+		return new Command() {
+			{
+				requires(req);
+			}
+			
+			@Override
+			protected void initialize() {
+				pid.setSetpoint(setPoint);
+				pid.enable();
+			}
+			@Override
+			protected void execute() {}
+			@Override
+			protected boolean isFinished() {
+				return !holdAfter && pid.onTarget();
+			}
+			@Override
+			protected void interrupted() {
+				pid.disable();
+			}
+			@Override
+			protected void end() {
+				pid.disable();
+			}
+		};
+	}
+	
+	public static Command pidHold(Subsystem req, PIDController pid, PIDSource source) {
+		return new Command() {
+			{
+				requires(req);
+			}
+			@Override
+			protected void initialize() {
+				pid.setSetpoint(source.pidGet());
+				pid.enable();
+			}
+			@Override
+			protected void execute() {}
+			@Override
+			protected boolean isFinished() {
+				return false;
+			}
+			@Override
+			protected void end() {
+				pid.disable();
+			}
+			@Override
+			protected void interrupted() {
+				pid.disable();
+			}
 		};
 	}
 }
