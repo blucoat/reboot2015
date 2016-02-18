@@ -28,6 +28,7 @@ public class Gyro extends AHRS {
 	@Override
 	public void reset() {
 		super.reset();
+		lastReset++;
 	}
 	
 	/**
